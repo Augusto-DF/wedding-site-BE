@@ -14,10 +14,11 @@ const list = () => {
 
 const create = (gift) => {
   const qry = `
-        INSERT INTO gifts (name, cost, photo) VALUES (
+        INSERT INTO gifts (name, cost, photo, categories) VALUES (
         @name, 
         @cost,
-        @photo
+        @photo,
+        @categories
         )
     `;
 
