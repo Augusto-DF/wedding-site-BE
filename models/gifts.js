@@ -1,0 +1,1 @@
+/*  CHECK (was_gifted == 1 OR (guest_name IS NOT NULL AND guest_cpf IS NOT NULL AND guest_email IS NOT NULL)) */
