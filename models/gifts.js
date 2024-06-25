@@ -112,7 +112,7 @@ const chooseAGiftValidate = (body) => {
 
   if (!Object.keys(error).length) return true;
 
-  return error;
+  return { error };
 };
 
 module.exports = {
