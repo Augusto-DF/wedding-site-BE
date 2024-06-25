@@ -27,6 +27,7 @@ const create = () => {
             cost REAL NOT NULL,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             photo BLOB NOT NULL,
+            photo_type TEXT NOT NULL,
             categories TEXT NOT NULL,
             was_gifted BOOLEAN DEFAULT 0,
             guest_name TEXT,
@@ -45,11 +46,13 @@ const populate = () => {
 
   for (const { label, value, category, photo } of GIFT_LIST) {
     const imageBuffer = fs.readFileSync(photo);
+    const photo_type = photo.substring(photo.length - 4, photo.length);
     const formattedGift = {
       name: label,
       cost: value,
       categories: JSON.stringify(category),
       photo: imageBuffer,
+      photo_type,
     };
 
     giftModel.create(formattedGift);

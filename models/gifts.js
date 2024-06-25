@@ -14,10 +14,11 @@ const list = () => {
 
 const create = (gift) => {
   const qry = `
-        INSERT INTO gifts (name, cost, photo, categories) VALUES (
+        INSERT INTO gifts (name, cost, photo, photo_type, categories ) VALUES (
         @name, 
         @cost,
         @photo,
+        @photo_type,
         @categories
         )
     `;
@@ -47,5 +48,9 @@ const remove = (id) => {
 
   return deleteStmt.run(id);
 };
+
+/* const parse = (gift) => {
+  const imageSrc = 
+} */
 
 module.exports = { list, create, update, remove };
