@@ -11,6 +11,16 @@ const list = () => {
   return result;
 };
 
+const find = (id) => {
+  const qry = `
+        SELECT * FROM gifts WHERE id = ? 
+    `;
+
+  const result = db.prepare(qry).get(id);
+
+  return result;
+};
+
 const create = (gift) => {
   const qry = `
         INSERT INTO gifts (name, cost, photo, photo_type, categories ) VALUES (
@@ -71,4 +81,45 @@ const formatGiftResponse = (gift) => {
   return formatedGift;
 };
 
-module.exports = { list, create, update, remove, formatGiftResponse };
+const chooseAGiftValidate = (body) => {
+  const REQUIRED_FIELDS = [
+    "giftIds",
+    "guest_name",
+    "guest_cpf",
+    "guest_email",
+    "guest_phone",
+  ];
+
+  const { giftIds } = body;
+
+  let error = {};
+
+  REQUIRED_FIELDS.forEach((field) => {
+    if (!Object.keys(body).includes(field))
+      error = { ...error, [field]: `is a required field.` };
+  });
+
+  if (giftIds?.length)
+    giftIds.forEach((targetId) => {
+      const { was_gifted, id, name } = find(targetId);
+
+      if (was_gifted)
+        error = {
+          ...error,
+          [`gift_${id}`]: `${name} was choosen for another one`,
+        };
+    });
+
+  if (!Object.keys(error).length) return true;
+
+  return error;
+};
+
+module.exports = {
+  list,
+  create,
+  update,
+  remove,
+  formatGiftResponse,
+  chooseAGiftValidate,
+};
