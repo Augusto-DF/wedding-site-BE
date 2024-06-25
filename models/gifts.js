@@ -7,7 +7,6 @@ const list = () => {
     `;
 
   const result = db.prepare(qry).all();
-  console.log(result);
 
   return result;
 };
@@ -49,8 +48,27 @@ const remove = (id) => {
   return deleteStmt.run(id);
 };
 
-/* const parse = (gift) => {
-  const imageSrc = 
-} */
+const formatGiftResponse = (gift) => {
+  console.log("gift", gift);
+  //Format image
+  const imageBase64 = gift.photo.toString("base64");
+  const type = gift.photo_type.substring(1, gift.photo_type.length);
+  const imageSrc = `data:image/${type};base64,${imageBase64}`;
 
-module.exports = { list, create, update, remove };
+  //Format Categories
+  const formatedCategories = JSON.parse(gift.categories);
+
+  const formatedGift = {
+    ...gift,
+    photo_src: imageSrc,
+    categories: formatedCategories,
+  };
+
+  //Delete useless fileds to user
+  delete formatedGift.photo;
+  delete formatedGift.photo_type;
+
+  return formatedGift;
+};
+
+module.exports = { list, create, update, remove, formatGiftResponse };
