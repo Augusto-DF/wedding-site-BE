@@ -4,9 +4,13 @@ const router = express.Router();
 const guestsModel = require("../models/guests");
 
 router.get("/", (req, res) => {
-  const guests = guestsModel.list();
+  try {
+    const guests = guestsModel.list();
 
-  console.log("result", guests);
+    res.status(200).json({ guests });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 router.post("/create", (req, res) => {
