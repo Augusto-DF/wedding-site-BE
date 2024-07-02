@@ -8,22 +8,10 @@ const initDB = require("../models/initDB");
 router.get("/", (req, res) => {
   try {
     const query = req.query;
-
-    console.log("query", query);
-
-    /* 
-      filters
-      computers
-    */
-
     if (Object.keys(query).length) {
       const { filters, computer } = query;
       const formattedFilters = filters?.split(",");
-      const formattedComputer = computer?.split(",");
       let list = [];
-
-      console.log("formattedFilters", formattedFilters);
-      console.log("formattedComputer", formattedComputer);
 
       if (formattedFilters.length && computer) {
         list = giftModel.list(formattedFilters, computer);
@@ -33,13 +21,9 @@ router.get("/", (req, res) => {
         list = giftModel.list(computer);
       }
 
-      console.log("list1", list);
-
       const formattedList = list.map((gift) =>
         giftModel.formatGiftResponse(gift)
       );
-
-      console.log("list2", formattedList);
 
       res.status(200).json({ response: formattedList });
     } else {
