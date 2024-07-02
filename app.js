@@ -1,7 +1,25 @@
 const express = require("express");
+const cors = require("cors");
 const routes = require("./routes/index");
 
+const allowedOrigins = [
+  "http://172.23.112.1:3000",
+  "http://192.168.0.7:3000",
+  "http://localhost:3000",
+  /* Other origins */
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    else return callback(new Error("Not allowed by CORS"));
+  },
+  optionsSuccessStatus: 200,
+};
+
 const app = express();
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3001;
 
