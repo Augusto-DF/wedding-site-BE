@@ -1,14 +1,28 @@
 const sql = require("better-sqlite3");
 const db = new sql(process.env.DB_NAME);
 
-const list = () => {
-  const qry = `
-        SELECT * FROM gifts
-    `;
+const list = (filters = undefined, order = undefined) => {
+  let qry = `SELECT * FROM gifts`;
 
-  const result = db.prepare(qry).all();
+  if (filters?.length)
+    qry =
+      qry +
+      ` WHERE (${filters.map((category) => "categories LIKE ?").join(" OR ")})`;
 
-  return result;
+  if (order)
+    qry = qry + ` ORDER BY cost ${order === "higher_value" ? "DESC" : "ASC"}`;
+
+  if (filters?.length) {
+    const result = db
+      .prepare(qry)
+      .all(...filters.map((filter) => `%${filter}%`));
+
+    return result;
+  } else {
+    const result = db.prepare(qry).all();
+
+    return result;
+  }
 };
 
 const find = (id) => {
