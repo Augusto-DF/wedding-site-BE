@@ -13,12 +13,12 @@ router.get("/", (req, res) => {
       const formattedFilters = filters?.split(",");
       let list = [];
 
-      if (formattedFilters.length && computer) {
+      if (formattedFilters?.length && computer) {
         list = giftModel.list(formattedFilters, computer);
-      } else if (formattedFilters.length) {
+      } else if (formattedFilters?.length) {
         list = giftModel.list(formattedFilters);
       } else if (computer) {
-        list = giftModel.list(computer);
+        list = giftModel.list(null, computer);
       }
 
       const formattedList = list.map((gift) =>
