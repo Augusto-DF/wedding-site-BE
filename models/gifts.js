@@ -103,7 +103,6 @@ const chooseAGiftValidate = (body) => {
     "payment_method",
     "guest_name",
     "guest_cpf",
-    "guest_email",
     "guest_phone",
   ];
 
