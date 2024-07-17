@@ -16,3 +16,6 @@ yarn-error.log
 dist/
 build/
 old/
+
+# Data Bases
+*.db
