@@ -44,12 +44,20 @@ router.post("/chooseGift", (req, res) => {
 
   const validate = giftModel.chooseAGiftValidate(body);
 
-  if (!validate.error) {
-    const { giftIds, guest_name, guest_cpf, guest_email, guest_phone } = body;
+  if (Object.keys(validate.error).length < 1) {
+    const {
+      giftIds,
+      payment_method,
+      guest_name,
+      guest_cpf,
+      guest_email,
+      guest_phone,
+    } = body;
 
     giftIds.forEach((id) => {
       const giftChanges = {
-        was_gifted: 1,
+        was_gifted: payment_method === "give" ? 1 : 0,
+        payment_method,
         guest_name,
         guest_cpf,
         guest_email,

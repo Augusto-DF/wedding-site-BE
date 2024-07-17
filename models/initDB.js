@@ -10,11 +10,11 @@ const create = () => {
         (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            email TEXT NOT NULL,
+            email TEXT,
             adults_number INTEGER NOT NULL,
             kids_number  INTEGER NOT NULL,
             message TEXT,
-            phone TEXT
+            phone TEXT NOT NULL
         )
   `;
 
@@ -30,6 +30,7 @@ const create = () => {
             photo_type TEXT NOT NULL,
             categories TEXT NOT NULL,
             was_gifted BOOLEAN DEFAULT 0,
+            payment_method TEXT,
             guest_name TEXT,
             guest_cpf TEXT,
             guest_email TEXT,

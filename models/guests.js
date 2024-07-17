@@ -21,12 +21,9 @@ const create = (guest) => {
 };
 
 const validateGuest = (guest) => {
-  const REQUIRED_FIELDS = ["name", "email", "adults_number", "kids_number"];
+  const REQUIRED_FIELDS = ["name", "phone", "adults_number", "kids_number"];
 
   let error = {};
-
-  if (!validateEmail(guest.email))
-    error = { ...error, email: "invalid email." };
 
   REQUIRED_FIELDS.forEach((field) => {
     if (!Object.keys(guest).includes(field))

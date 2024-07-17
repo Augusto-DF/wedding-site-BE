@@ -1,6 +1,8 @@
 const sql = require("better-sqlite3");
 const db = new sql(process.env.DB_NAME);
 
+const POSSIBLE_PAYMENTS_METHODS = ["give", "pix"];
+
 const list = (filters = undefined, order = undefined) => {
   let qry = `SELECT * FROM gifts`;
 
@@ -98,6 +100,7 @@ const formatGiftResponse = (gift) => {
 const chooseAGiftValidate = (body) => {
   const REQUIRED_FIELDS = [
     "giftIds",
+    "payment_method",
     "guest_name",
     "guest_cpf",
     "guest_email",
@@ -124,7 +127,8 @@ const chooseAGiftValidate = (body) => {
         };
     });
 
-  if (!Object.keys(error).length) return true;
+  if (!POSSIBLE_PAYMENTS_METHODS.includes(body.payment_method))
+    error = { ...error, payment_method: "invalid payment method" };
 
   return { error };
 };
