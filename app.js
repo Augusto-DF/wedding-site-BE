@@ -6,7 +6,7 @@ const allowedOrigins = [
   "http://172.23.112.1:3000",
   "http://192.168.0.7:3000",
   "http://localhost:3000",
-  "http://195.200.7.134:3011/",
+  "http://195.200.7.134:3011",
   /* Other origins */
 ];
 
