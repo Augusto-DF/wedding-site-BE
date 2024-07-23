@@ -11,7 +11,7 @@ const list = () => {
 };
 
 const create = (guest) => {
-  let optionalFields = { message: null, phone: null };
+  let optionalFields = { message: null, email: null };
 
   const qry = `
         INSERT INTO guests (name, email, adults_number, kids_number, message, phone) VALUES (@name, @email, @adults_number, @kids_number, @message, @phone)

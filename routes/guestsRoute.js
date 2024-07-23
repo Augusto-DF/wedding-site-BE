@@ -14,8 +14,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-  console.log(req.body);
-
   const body = req.body;
   const validate = guestsModel.validateGuest(body);
 
