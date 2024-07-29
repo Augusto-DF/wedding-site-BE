@@ -16,6 +16,20 @@ const GIFT_LIST = [
     photo: GIFT_IMAGES_DIR + "/passeio-cj-02.jpg",
   },
   {
+    label: "Passeio em Campos do Jordão",
+    value: 300,
+    disponibility: true,
+    category: ["all", "honey_moon"],
+    photo: GIFT_IMAGES_DIR + "/passeio-cj-03.jpg",
+  },
+  {
+    label: "Passeio em Campos do Jordão",
+    value: 300,
+    disponibility: true,
+    category: ["all", "honey_moon"],
+    photo: GIFT_IMAGES_DIR + "/passeio-cj-04.png",
+  },
+  {
     label: "Passeio em São Paulo",
     value: 300,
     disponibility: true,
@@ -27,16 +41,23 @@ const GIFT_LIST = [
     value: 300,
     disponibility: true,
     category: ["all", "honey_moon"],
-    photo: GIFT_IMAGES_DIR + "/passeio-cj-02.jpg",
+    photo: GIFT_IMAGES_DIR + "/passeio-sp-03.jpg",
   },
   {
+    label: "Passeio em São Paulo",
+    value: 300,
+    disponibility: true,
+    category: ["all", "honey_moon"],
+    photo: GIFT_IMAGES_DIR + "/passeio-sp-02.jpg",
+  },
+  /* {
     label:
       "Aspirador de pó Sem Fio vertical Electrolux 2 em 1 luz led ERG25N bivolt cor azul ou preto",
     value: 850,
     disponibility: true,
     category: ["all", "eletronic"],
     photo: GIFT_IMAGES_DIR + "/aspirador.png",
-  },
+  }, */
   {
     label:
       "Purificador de água  Electrolux pure 4x, painel touch BRANCO PE12B Bivolt",
@@ -59,6 +80,22 @@ const GIFT_LIST = [
     disponibility: true,
     category: ["all", "eletronic"],
     photo: GIFT_IMAGES_DIR + "/fogao.png",
+  },
+  {
+    label:
+      "Geladeira Electrolux Frost Free Inverter 390L Efficient AutoSense Duplex Black Inox Look (IF43B)",
+    value: 3900,
+    disponibility: true,
+    category: ["all", "eletronic"],
+    photo: GIFT_IMAGES_DIR + "/geladeira.jpg",
+  },
+  {
+    label:
+      "Air Fryer Electrolux 3,2L Digital Cinza Experience Com Função Virar 1400W",
+    value: 390,
+    disponibility: true,
+    category: ["all", "eletronic"],
+    photo: GIFT_IMAGES_DIR + "/air-frier.jpeg",
   },
   {
     label:
