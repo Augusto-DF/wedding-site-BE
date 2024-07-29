@@ -2,9 +2,12 @@ const { GIFT_LIST } = require("../assets/data/giftList");
 const giftModel = require("./gifts");
 const fs = require("fs");
 const sqlite = require("better-sqlite3");
+const { gifterTableQuery } = require("./gifter");
+const { gifter_giftTableQuery } = require("./gifters_gifts");
 const db = new sqlite(process.env.DB_NAME);
 
 const create = () => {
+  // Add gifts table
   const createGuestsTableQuery = `
     CREATE TABLE IF NOT EXISTS guests 
         (
@@ -29,22 +32,26 @@ const create = () => {
             photo BLOB NOT NULL,
             photo_type TEXT NOT NULL,
             categories TEXT NOT NULL,
-            was_gifted BOOLEAN DEFAULT 0,
+            was_gifted BOOLEAN DEFAULT 0
+        )
+  `;
+
+  /*  
+        Old fields: 
             payment_method TEXT,
             guest_name TEXT,
             guest_cpf TEXT,
             guest_email TEXT,
-            guest_phone TEXT           
-        )
-  `;
+            guest_phone TEXT 
+  */
 
   db.prepare(createGiftsTableQuery).run();
   db.prepare(createGuestsTableQuery).run();
+  db.prepare(gifterTableQuery).run();
+  db.prepare(gifter_giftTableQuery).run();
 };
 
 const populate = () => {
-  console.log("path", GIFT_LIST);
-
   for (const { label, value, category, photo } of GIFT_LIST) {
     const imageBuffer = fs.readFileSync(photo);
     const photo_type = photo.substring(photo.length - 4, photo.length);

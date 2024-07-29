@@ -28,7 +28,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 app.listen(PORT, () => {
-  console.log("PORT", process.env.PORT);
-  console.log("DB_NAME", process.env.DB_NAME);
   console.log(`Listening on http://localhost:${process.env.PORT}`);
 });

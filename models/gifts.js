@@ -75,7 +75,6 @@ const remove = (id) => {
 };
 
 const formatGiftResponse = (gift) => {
-  console.log("gift", gift);
   //Format image
   const imageBase64 = gift.photo.toString("base64");
   const type = gift.photo_type.substring(1, gift.photo_type.length);

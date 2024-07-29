@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const giftModel = require("../models/gifts");
-const initDB = require("../models/initDB");
+const gifterModel = require("../models/gifter");
+const gifter_giftModel = require("../models/gifters_gifts");
 
 router.get("/", (req, res) => {
   try {
@@ -34,7 +35,6 @@ router.get("/", (req, res) => {
       res.status(200).json({ response: list });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Something is wrong" });
   }
 });
@@ -45,38 +45,40 @@ router.post("/chooseGift", (req, res) => {
   const validate = giftModel.chooseAGiftValidate(body);
 
   if (Object.keys(validate.error).length < 1) {
-    const {
-      giftIds,
-      payment_method,
-      guest_name,
-      guest_cpf,
-      guest_email,
-      guest_phone,
-    } = body;
+    const { giftIds, payment_method, guest_name, guest_cpf, guest_phone } =
+      body;
 
     giftIds.forEach((id) => {
-      const giftChanges = {
-        was_gifted: payment_method === "give" ? 1 : 0,
-        payment_method,
-        guest_name,
-        guest_cpf,
-        guest_email,
-        guest_phone,
-      };
-
       try {
-        giftModel.update(id, giftChanges);
+        let gifter = gifterModel.find(guest_cpf);
+        if (!gifter?.id) {
+          gifter = gifterModel.create({
+            name: guest_name,
+            cpf: guest_cpf,
+            phone: guest_phone,
+          });
+        }
+
+        if (gifter.id) {
+          const giftChanges = {
+            was_gifted: payment_method === "give" ? 1 : 0,
+          };
+          giftModel.update(id, giftChanges);
+          gifter_giftModel.create({
+            payment_method,
+            gifter_id: gifter.id,
+            gift_id: id,
+          });
+        }
       } catch (err) {
         res.status(500).json({ error: err });
       }
-
-      res.status(200).json({ success: "Your gift has been reserved" });
     });
+
+    res.status(200).json({ success: "Your gift has been reserved" });
   } else {
     res.status(400).json({ ...validate });
   }
-
-  console.log(validate);
 });
 
 module.exports = router;
